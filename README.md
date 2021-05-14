@@ -9,6 +9,10 @@ Implementação de um CRUD com duas tabelas e um relacionamento entre elas utili
 
 Foram utilizados os layouts e os conceitos vistos em aula, como Fragmentos, ListView, Spinners e Adapters, além da orientação à objetos.
 
+### Descrição do Trabalho
+
+[Disponível Aqui](https://github.com/esperancaleonardo/progmobile-t1/blob/main/assets/desc.pdf))
+
 ### Requisitos Mínimos
 
 Foram Atendidos os seguintes requisitos mínimos:
@@ -22,6 +26,7 @@ Foram Atendidos os seguintes requisitos mínimos:
 
 ### Requisitos Extras
 
+- [x] inserção de dados via mock em csv
 - [ ] relatório de alunos por curso
 - [ ] seção sobre o aplicativo
 - [ ] bloquear edição de texto nas exclusões
