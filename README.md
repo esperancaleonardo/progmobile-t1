@@ -42,6 +42,9 @@ Foram Atendidos os seguintes requisitos mínimos:
 
 ### DER - Modelo do Banco
 
+![alt text](https://github.com/esperancaleonardo/progmobile-t1/blob/main/assets/DER_RELACIONAL.png)
+
+
 ### Modelagem do Sistema
 
 Seque abaixo o modelo que atende os requisitos mínimos do projeto
