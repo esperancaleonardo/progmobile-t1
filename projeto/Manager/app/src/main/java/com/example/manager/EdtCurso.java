@@ -19,6 +19,7 @@ public class EdtCurso extends Fragment {
     Spinner seletorCurso;
     Button editar, cancelar;
     Database database;
+    int click = 0;
 
     @Override
     public void onResume() {
@@ -76,27 +77,52 @@ public class EdtCurso extends Fragment {
         editar.setOnClickListener(new View.OnClickListener(){
 
             @Override
-            public void onClick(View v) {//verifica os campos preeenchidos e insere no banco
-                //verifica se existem campos vazios antes de inserir e exibe informação em toast
-                if ((!nomeCurso.getText().toString().equals("")) && (!cargaCurso.getText().toString().equals(""))
-                        && (seletorCurso.getSelectedItemId() != 0)) {
-                    int id_alterado = database.getCursoId(seletorCurso.getSelectedItem().toString());
-                    Curso curso = new Curso(nomeCurso.getText().toString(), Integer.valueOf(cargaCurso.getText().toString()));
+            public void onClick(View v) {
+                if(click == 0){
+                    click = 1;
 
-                    database.atualizaCurso(id_alterado, curso);
-                    seletorCurso.setSelection(0);
-                    nomeCurso.setText("");
-                    cargaCurso.setText("");
-
-                    ArrayList<String> cursos_lista = database.listaCursos();
-                    ArrayAdapter cursos_adapter = new ArrayAdapter(container.getContext(), android.R.layout.simple_spinner_item, cursos_lista);
-                    cursos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    seletorCurso.setAdapter(cursos_adapter);
-
-                    Toast.makeText(EdtCurso.super.getContext(), "Curso alterado com sucesso!", Toast.LENGTH_LONG).show();
+                    nomeCurso.setEnabled(true);
+                    nomeCurso.setFocusable(true);
+                    nomeCurso.setFocusableInTouchMode(true);
+                    cargaCurso.setEnabled(true);
+                    cargaCurso.setFocusable(true);
+                    cargaCurso.setFocusableInTouchMode(true);
+                    editar.setText("SALVAR");
                 }
                 else{
-                    Toast.makeText(EdtCurso.super.getContext(),"Há campos em branco!", Toast.LENGTH_LONG).show();
+                    click = 0;
+
+                    //verifica os campos preeenchidos e insere no banco
+                    //verifica se existem campos vazios antes de inserir e exibe informação em toast
+                    if ((!nomeCurso.getText().toString().equals("")) && (!cargaCurso.getText().toString().equals(""))
+                            && (seletorCurso.getSelectedItemId() != 0)) {
+                        int id_alterado = database.getCursoId(seletorCurso.getSelectedItem().toString());
+                        Curso curso = new Curso(nomeCurso.getText().toString(), Integer.valueOf(cargaCurso.getText().toString()));
+
+                        database.atualizaCurso(id_alterado, curso);
+                        seletorCurso.setSelection(0);
+                        nomeCurso.setText("");
+                        cargaCurso.setText("");
+
+                        ArrayList<String> cursos_lista = database.listaCursos();
+                        ArrayAdapter cursos_adapter = new ArrayAdapter(container.getContext(), android.R.layout.simple_spinner_item, cursos_lista);
+                        cursos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        seletorCurso.setAdapter(cursos_adapter);
+
+                        Toast.makeText(EdtCurso.super.getContext(), "Curso alterado com sucesso!", Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(EdtCurso.super.getContext(),"Há campos em branco!", Toast.LENGTH_LONG).show();
+                    }
+
+                    nomeCurso.setEnabled(false);
+                    nomeCurso.setFocusable(false);
+                    nomeCurso.setFocusableInTouchMode(false);
+                    cargaCurso.setEnabled(false);
+                    cargaCurso.setFocusable(false);
+                    cargaCurso.setFocusableInTouchMode(false);
+                    editar.setText("SALVAR");
+
                 }
             }
         });

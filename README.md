@@ -36,9 +36,9 @@ Foram Atendidos os seguintes requisitos mínimos:
 - [x] não aceitar cpfs duplicados
 - [x] relatório de alunos por curso
 - [x] seção sobre o aplicativo
-- [ ] bloquear edição de texto nas exclusões
-- [ ] bloquear a edição do texto até clicar em editar
-- [ ] ativar edição ao clicar em 'EDITAR' que passa a ser 'SALVAR'
+- [x] bloquear edição de texto nas exclusões
+- [x] bloquear a edição do texto até clicar em editar
+- [x] ativar edição ao clicar em 'EDITAR' que passa a ser 'SALVAR'
 
 ### DER - Modelo do Banco
 

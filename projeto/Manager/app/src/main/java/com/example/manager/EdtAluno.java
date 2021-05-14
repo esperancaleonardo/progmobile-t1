@@ -20,6 +20,7 @@ public class EdtAluno extends Fragment {
     private Spinner  seletorCurso, seletorAlunoEdt;
     private Button editar, cancelar;
     private Database database;
+    int click = 0;
 
     @Override
     public void onResume() {
@@ -45,6 +46,7 @@ public class EdtAluno extends Fragment {
         seletorCurso = v.findViewById(R.id.spinnerSeletorEdtCursoALuno);
         editar = v.findViewById(R.id.btnEditAluno);
         cancelar = v.findViewById(R.id.btnCanEditAluno);
+        seletorCurso.setEnabled(false);
 
         //carrega os dados dos cursos do banco e preenche o spinner
         ArrayList<String> alunos_lista = database.listaAlunos();
@@ -73,39 +75,73 @@ public class EdtAluno extends Fragment {
 
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {//limpa os campos e exibe toast informativo
+            public void onClick(View v) {
+                //limpa os campos e exibe toast informativo
                 Toast.makeText(EdtAluno.super.getContext(),"Ação cancelada!", Toast.LENGTH_LONG).show();
                 seletorAlunoEdt.setSelection(0);
                 nomeAluno.setText("");
                 emailAluno.setText("");
                 telefoneAluno.setText("");
-                seletorCurso.setAdapter(null);
             }
         });
 
         editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//verifica os campos preeenchidos e insere no banco
-                String nome = nomeAluno.getText().toString();
-                String email = emailAluno.getText().toString();
-                String telefone = telefoneAluno.getText().toString();
+                if(click == 0){
+                    click = 1;
 
-                //verifica se existem campos vazios antes de inserir e exibe informação em toast
-                if((!nome.equals("")) && (!email.equals("")) && (!telefone.equals("")) && (seletorCurso.getSelectedItemId()!= 0)){
-                    int id_alteracao = database.getAlunoId(seletorAlunoEdt.getSelectedItem().toString());
-                    int id_curso = database.getCursoId(seletorCurso.getSelectedItem().toString());
-                    Aluno aluno = new Aluno(nome, email, seletorAlunoEdt.getSelectedItem().toString(), telefone, id_curso);
+                    seletorCurso.setEnabled(true);
+                    nomeAluno.setEnabled(true);
+                    nomeAluno.setFocusable(true);
+                    nomeAluno.setFocusableInTouchMode(true);
+                    emailAluno.setEnabled(true);
+                    emailAluno.setFocusable(true);
+                    emailAluno.setFocusableInTouchMode(true);
+                    telefoneAluno.setEnabled(true);
+                    telefoneAluno.setFocusable(true);
+                    telefoneAluno.setFocusableInTouchMode(true);
+                    editar.setText("SALVAR");
 
-                    database.atualizaAluno(id_alteracao, aluno);
-                    seletorAlunoEdt.setSelection(0);
-                    nomeAluno.setText("");
-                    emailAluno.setText("");
-                    telefoneAluno.setText("");
-                    seletorCurso.setAdapter(null);
-                    Toast.makeText(EdtAluno.super.getContext(),"Aluno alterado com sucesso!", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    Toast.makeText(EdtAluno.super.getContext(),"Há campos em branco!", Toast.LENGTH_LONG).show();
+                    click=0;
+
+                    String nome = nomeAluno.getText().toString();
+                    String email = emailAluno.getText().toString();
+                    String telefone = telefoneAluno.getText().toString();
+
+                    //verifica se existem campos vazios antes de inserir e exibe informação em toast
+                    if((!nome.equals("")) && (!email.equals("")) && (!telefone.equals("")) && (seletorCurso.getSelectedItemId()!= 0)){
+                        int id_alteracao = database.getAlunoId(seletorAlunoEdt.getSelectedItem().toString());
+                        int id_curso = database.getCursoId(seletorCurso.getSelectedItem().toString());
+                        Aluno aluno = new Aluno(nome, email, seletorAlunoEdt.getSelectedItem().toString(), telefone, id_curso);
+
+                        database.atualizaAluno(id_alteracao, aluno);
+                        seletorAlunoEdt.setSelection(0);
+                        nomeAluno.setText("");
+                        emailAluno.setText("");
+                        telefoneAluno.setText("");
+                        seletorCurso.setAdapter(null);
+                        Toast.makeText(EdtAluno.super.getContext(),"Aluno alterado com sucesso!", Toast.LENGTH_LONG).show();
+
+                    }
+                    else{
+                        Toast.makeText(EdtAluno.super.getContext(),"Há campos em branco!", Toast.LENGTH_LONG).show();
+                    }
+
+                    seletorCurso.setAdapter(null);
+                    seletorCurso.setEnabled(false);
+                    nomeAluno.setEnabled(false);
+                    nomeAluno.setFocusable(false);
+                    nomeAluno.setFocusableInTouchMode(false);
+                    emailAluno.setEnabled(false);
+                    emailAluno.setFocusable(false);
+                    emailAluno.setFocusableInTouchMode(false);
+                    telefoneAluno.setEnabled(false);
+                    telefoneAluno.setFocusable(false);
+                    telefoneAluno.setFocusableInTouchMode(false);
+                    editar.setText("EDITAR");
                 }
             }
         });
