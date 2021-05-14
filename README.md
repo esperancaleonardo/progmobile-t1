@@ -58,8 +58,4 @@ Seque abaixo o modelo que atende os requisitos mínimos do projeto
 -------------------------------------------------
 ## Aluno
 
-Leonardo de Oliveira Esperança
-
-Engenharia de Computação
-
-2015.1905.011-9
+Leonardo de Oliveira Esperança    ---    Engenharia de Computação   ---   2015.1905.011-9
