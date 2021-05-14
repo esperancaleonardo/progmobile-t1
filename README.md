@@ -11,7 +11,7 @@ Foram utilizados os layouts e os conceitos vistos em aula, como Fragmentos, List
 
 ### Descrição do Trabalho
 
-[Disponível Aqui](https://github.com/esperancaleonardo/progmobile-t1/blob/main/assets/desc.pdf))
+[Disponível Aqui](https://github.com/esperancaleonardo/progmobile-t1/blob/main/assets/desc.pdf)
 
 ### Requisitos Mínimos
 
