@@ -22,8 +22,11 @@ Foram Atendidos os seguintes requisitos mínimos:
 
 ### Requisitos Extras
 
-- [] relatório de alunos por curso
-- 
+- [ ] relatório de alunos por curso
+- [ ] seção sobre o aplicativo
+- [ ] bloquear edição de texto nas exclusões
+- [ ] bloquear a edição do texto até clicar em editar
+- [ ] ativar edição ao clicar em 'EDITAR' que passa a ser 'SALVAR'
 
 ### DER - Modelo do Banco
 
@@ -41,6 +44,7 @@ Seque abaixo o modelo que atende os requisitos mínimos do projeto
 ## Aluno
 
 Leonardo de Oliveira Esperança
+
 Engenharia de Computação
-2015.1905.011-9# progmobile-t1
-Implementação do Trabalho Prático 1 de PROGMOBILE - 2021.1
+
+2015.1905.011-9
