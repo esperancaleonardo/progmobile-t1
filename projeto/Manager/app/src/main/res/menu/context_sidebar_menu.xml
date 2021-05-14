@@ -8,6 +8,11 @@
           android:id="@+id/menuCtxCurso" />
     <item android:title="@string/menu_op4"
           android:id="@+id/menuCtxLista"/>
+    <item android:title="@string/alunos_por_curso"
+        android:id="@+id/menuCtxRelAlunoCurso"/>
+    <item android:title="@string/about"
+        android:id="@+id/menuCtxAbout"/>
     <item android:title="@string/menu_op5"
           android:id="@+id/menuCtxSair"/>
+
 </menu>

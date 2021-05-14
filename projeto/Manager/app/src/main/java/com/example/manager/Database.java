@@ -3,6 +3,8 @@ package com.example.manager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteAbortException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
@@ -150,16 +152,22 @@ public class Database extends SQLiteOpenHelper {
         db.delete("TB_ALUNO", "aluno_id=?", args);
     }
 
-    //insere um registro na tabela aluno
+    //insere um registro na tabela aluno caso não exista um aluno ja cadastrado com o cpf
     public void insereAluno(Aluno aluno){
         db = this.getWritableDatabase();
-        ContentValues valores = new ContentValues();
-        valores.put("aluno_nome", aluno.getNome());
-        valores.put("aluno_email", aluno.getEmail());
-        valores.put("aluno_cpf", aluno.getCpf());
-        valores.put("aluno_telefone", aluno.getTelefone());
-        valores.put("aluno_curso_id", aluno.getCurso());
-        db.insert("TB_ALUNO", null, valores);
+
+        if(this.getAlunoNome(aluno.getCpf().toString()) == null){
+            ContentValues valores = new ContentValues();
+            valores.put("aluno_nome", aluno.getNome());
+            valores.put("aluno_email", aluno.getEmail());
+            valores.put("aluno_cpf", aluno.getCpf());
+            valores.put("aluno_telefone", aluno.getTelefone());
+            valores.put("aluno_curso_id", aluno.getCurso());
+            db.insert("TB_ALUNO", null, valores);
+        }
+        else{
+            throw new SQLiteAbortException();
+        }
     }
 
     //atualiza um registro na tabela aluno
@@ -181,7 +189,7 @@ public class Database extends SQLiteOpenHelper {
         Cursor cursor = getReadableDatabase().query("TB_ALUNO", colunas,null, null, null,null, null, null);
 
         ArrayList<String> listaAlunos = new ArrayList<String>();
-        String c = "------------- Selecione um CPF -------------";
+        String c = "---------------------- Selecione um CPF ----------------------";
         listaAlunos.add(c);
         while (cursor.moveToNext()){
             c = cursor.getString(cursor.getColumnIndex("aluno_cpf"));
@@ -196,7 +204,7 @@ public class Database extends SQLiteOpenHelper {
         Cursor cursor = getReadableDatabase().query("TB_CURSO", colunas,null, null, null,null, null, null);
 
         ArrayList<String> listaCursos = new ArrayList<String>();
-        String c = "------------- Selecione um curso -------------";
+        String c = "---------------------- Selecione um curso ----------------------";
         listaCursos.add(c);
         while (cursor.moveToNext()){
             c = cursor.getString(cursor.getColumnIndex("curso_nome"));
@@ -207,10 +215,15 @@ public class Database extends SQLiteOpenHelper {
 
     // buscam nome, telefone e email dos alunos através do cpf
     public String getAlunoNome(String aluno_cpf){
+
         Cursor cursor = getReadableDatabase().rawQuery("SELECT aluno_nome FROM TB_ALUNO where aluno_cpf = '"+aluno_cpf+"'", null);
         cursor.moveToFirst();
         String nome = cursor.getString(cursor.getColumnIndex("aluno_nome"));
-        return nome;
+
+        if(nome != null){
+            return nome;
+        }
+        return null;
     }
     public String getAlunoEmail(String aluno_cpf){
         Cursor cursor = getReadableDatabase().rawQuery("SELECT aluno_email FROM TB_ALUNO where aluno_cpf = '"+aluno_cpf+"'", null);
@@ -248,4 +261,23 @@ public class Database extends SQLiteOpenHelper {
         int ch_curso = cursor.getInt(cursor.getColumnIndex("curso_carga_horaria"));
         return ch_curso;
     }
+
+    //retorna a quantidade de alunos que escolheram cada um dos cursos
+    public ArrayList<String> alunosPorCurso(){
+
+        Cursor cursor = getReadableDatabase().rawQuery("Select COUNT(aluno_id) qdt, curso_nome FROM TB_ALUNO A JOIN TB_CURSO C ON C.curso_id = A.aluno_curso_id GROUP BY curso_nome", null);
+        cursor.moveToFirst();
+
+        int qtde;
+        String curso_nome;
+        ArrayList<String> qtd_aluno_curso = new ArrayList<String>();
+
+        do{
+            qtde = cursor.getInt(0);
+            curso_nome = cursor.getString(1);
+            qtd_aluno_curso.add(String.valueOf(qtde)+" alunos cadastrados no curso "+curso_nome+".");
+        }while (cursor.moveToNext());
+        return qtd_aluno_curso;
+    }
+
 }

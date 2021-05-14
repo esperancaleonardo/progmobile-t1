@@ -81,6 +81,22 @@ public class MainActivity extends AppCompatActivity {
                     transaction.commit();
                     lastId = id;
                 }
+                else if (id == R.id.menuCtxRelAlunoCurso){ //usuario seleciona contexto listar qtde alunos por curso
+                    CtxListagemQtdeFragment listagemQtdeFragment = new CtxListagemQtdeFragment();
+                    transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.pagerContext, listagemQtdeFragment, "frag_lista_alunos_curso");
+                    transaction.addToBackStack("pilha");
+                    transaction.commit();
+                    lastId = id;
+                }
+                else if (id == R.id.menuCtxAbout){ //usuario seleciona contexto página sobre para o viewpager
+                    CtxAbout aboutFragment = new CtxAbout();
+                    transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.pagerContext, aboutFragment, "frag_inicial");
+                    transaction.addToBackStack("pilha");
+                    transaction.commit();
+                    lastId = id;
+                }
                 else if (id == R.id.menuCtxSair){ //usuario seleciona contexto sair do app para o viewpager
                     lastId = id;
                     finish();

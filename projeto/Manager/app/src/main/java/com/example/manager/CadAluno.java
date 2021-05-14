@@ -1,5 +1,6 @@
 package com.example.manager;
 
+import android.database.sqlite.SQLiteAbortException;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
@@ -56,15 +57,19 @@ public class CadAluno extends Fragment {
                 String telefone = aluno_telefone.getText().toString();
 
                 if ((!nome.equals("")) && (!email.equals("")) && (!cpf.equals("")) && (!telefone.equals("")) && (spinner_seletor_curso.getSelectedItemId() != 0)){  //
-                    int id_curso = database.getCursoId(spinner_seletor_curso.getSelectedItem().toString());
-                    Aluno aluno = new Aluno(nome, email, cpf, telefone, id_curso);
-                    Toast.makeText(CadAluno.super.getContext(),"Aluno cadastrado com sucesso!", Toast.LENGTH_LONG).show();
-                    aluno_nome.setText("");
-                    aluno_email.setText("");
-                    aluno_cpf.setText("");
-                    aluno_telefone.setText("");
-                    spinner_seletor_curso.setSelection(0);
-                    database.insereAluno(aluno);
+                    try{
+                        int id_curso = database.getCursoId(spinner_seletor_curso.getSelectedItem().toString());
+                        Aluno aluno = new Aluno(nome, email, cpf, telefone, id_curso);
+                        Toast.makeText(CadAluno.super.getContext(),"Aluno cadastrado com sucesso!", Toast.LENGTH_LONG).show();
+                        aluno_nome.setText("");
+                        aluno_email.setText("");
+                        aluno_cpf.setText("");
+                        aluno_telefone.setText("");
+                        spinner_seletor_curso.setSelection(0);
+                        database.insereAluno(aluno);
+                    }catch (SQLiteAbortException e){
+                        Toast.makeText(CadAluno.super.getContext(),"Já existe um usuário com este CPF", Toast.LENGTH_LONG).show();
+                    }
                 }
                 else{
                     Toast.makeText(CadAluno.super.getContext(),"Há campos em branco!", Toast.LENGTH_LONG).show();

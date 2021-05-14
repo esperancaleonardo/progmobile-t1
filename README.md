@@ -31,11 +31,11 @@ Foram Atendidos os seguintes requisitos mínimos:
 ### Requisitos Extras
 
 - [x] inserção de dados via mock em csv
-- [ ] ~~máscaras de CPF~~
-- [ ] ~~máscaras de Telefone~~
-- [ ] não aceitar cpfs duplicados
-- [ ] relatório de alunos por curso
-- [ ] seção sobre o aplicativo
+- [ ] ~~máscaras de CPF~~ (requisito removido)
+- [ ] ~~máscaras de Telefone~~ (requisito removido)
+- [x] não aceitar cpfs duplicados
+- [x] relatório de alunos por curso
+- [x] seção sobre o aplicativo
 - [ ] bloquear edição de texto nas exclusões
 - [ ] bloquear a edição do texto até clicar em editar
 - [ ] ativar edição ao clicar em 'EDITAR' que passa a ser 'SALVAR'

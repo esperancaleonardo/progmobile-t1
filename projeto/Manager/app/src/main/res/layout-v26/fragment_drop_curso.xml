@@ -16,17 +16,17 @@
         android:layout_marginBottom="240dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text=""
-        android:enabled="false"
-        android:focusableInTouchMode="false"
         android:focusable="false"
+        android:text=""
+        android:focusedByDefault="false"
+        android:focusableInTouchMode="false"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="LabelFor"
-        android:autofillHints=""/>
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/textView4"
