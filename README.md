@@ -9,6 +9,9 @@ Implementação de um CRUD com duas tabelas e um relacionamento entre elas utili
 
 Foram utilizados os layouts e os conceitos vistos em aula, como Fragmentos, ListView, Spinners e Adapters, além da orientação à objetos.
 
+O CRUD implementado gerencia cadastro de alunos e cursos. Cada curso tem um nome e uma carga horária e cada aluno tem um nome, um email, um cpf, um telefone e um curso escolhido.
+
+
 ### Descrição do Trabalho
 
 [Disponível Aqui](https://github.com/esperancaleonardo/progmobile-t1/blob/main/assets/desc.pdf)
@@ -21,12 +24,16 @@ Foram Atendidos os seguintes requisitos mínimos:
 - [x] a aplicação permite registrar alunos, escolhendo um curso registrado;
 - [x] ler, editar e apagar alunos cadastrados;
 - [x] ler, editar e apagar cursos registrados;
+- [x] um curso com alunos cadastrados não pode ser excluído
 - [x] no cadastro de um aluno, deve ser possível escolher um curso;
 - [x] a aplicação deve listar os alunos e seus respectivos cursos escolhidos utilizando de um ListView.
 
 ### Requisitos Extras
 
 - [x] inserção de dados via mock em csv
+- [ ] máscaras de CPF
+- [ ] máscaras de Telefone
+- [ ] não aceitar cpfs duplicados
 - [ ] relatório de alunos por curso
 - [ ] seção sobre o aplicativo
 - [ ] bloquear edição de texto nas exclusões
