@@ -22,19 +22,20 @@ Foram Atendidos os seguintes requisitos mínimos:
 
 ### Requisitos Extras
 
-TODO
+- [] relatório de alunos por curso
+- 
 
 ### DER - Modelo do Banco
 
 ### Modelagem do Sistema
 
-Seque abaixo o modelo que atende os requisitos mínimos
+Seque abaixo o modelo que atende os requisitos mínimos do projeto
 
-
+![alt text](https://github.com/esperancaleonardo/progmobile-t1/blob/main/assets/a.svg)
 
 ### Link Apresentação do Trabalho
 
-[Clique aqui para ver o vídeo de apresentação!]()
+[Clique aqui para ver o vídeo de apresentação!](http://www.youtube.com)
 
 -------------------------------------------------
 ## Aluno
