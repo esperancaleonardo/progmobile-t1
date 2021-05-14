@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/menu_op1"
+        android:id="@+id/menuCtxInicial"/>
+    <item android:title="@string/menu_op2"
+          android:id="@+id/menuCtxAluno" />
+    <item android:title="@string/menu_op3"
+          android:id="@+id/menuCtxCurso" />
+    <item android:title="@string/menu_op4"
+          android:id="@+id/menuCtxLista"/>
+    <item android:title="@string/menu_op5"
+          android:id="@+id/menuCtxSair"/>
+</menu>

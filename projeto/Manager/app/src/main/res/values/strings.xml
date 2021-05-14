@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">Controle de Cursos Online</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <string name="texto_init">Selecione ☰ para escolher uma operação a ser realizada.</string>
+
+    <!--- CTX MENU -->
+    <string name="titulo_header_sidebar">CONTROLE DE CURSOS ONLINE</string>
+    <string name="menu_op1">Página Inicial</string>
+    <string name="menu_op2">Gerenciar Alunos</string>
+    <string name="menu_op3">Gerenciar Cursos</string>
+    <string name="menu_op4">Listar Cadastros</string>
+    <string name="menu_op5">Sair do App</string>
+
+    <!--- CTX TITULOS -->
+    <string name="titulo_cadastro">Lista de Alunos Cadastros em Cursos</string>
+    <string name="titulo_ctx_aluno">Gerenciador de Alunos</string>
+    <string name="titulo_ctx_curso">Gerenciador de Cursos</string>
+
+    <!--- CTX INSERIR ALUNO -->
+    <string name="titulo_cad_aluno">Cadastro de Aluno</string>
+    <string name="subtitulo_cad_aluno">Preencha as informações a seguir e escolha um curso:</string>
+    <string name="cad_aluno_nome">Nome Completo</string>
+    <string name="cad_aluno_email">Email do Aluno</string>
+    <string name="cad_aluno_cpf">CPF do Aluno</string>
+    <string name="cad_aluno_celular">Telefone Celular</string>
+
+    <!--- CTX EDITAR ALUNO -->
+    <string name="tit_edt_cad_aluno">Editar Cadastro de Aluno</string>
+    <string name="subt_del_cad_aluno">Escolha um aluno cadastrado pelo CPF:</string>
+
+    <!--- CTX EXCLUIR ALUNO -->
+    <string name="titulo_del_cad_aluno">Excluir Cadastro de Aluno</string>
+    <string name="subt_edt_cad_aluno">Escolha um aluno cadastrado pelo CPF:</string>
+
+    <!--- CTX INSERIR CURSO -->
+    <string name="cad_curso_titulo">Cadastro de Curso</string>
+    <string name="cad_curso_subtitulo">Preencha as informações a seguir sobre o curso:</string>
+    <string name="cad_curso_nome">Nome do Curso</string>
+    <string name="cad_curso_carga">Carga Horária (ex: 34, 68, 102)</string>
+
+    <!--- CTX EDITAR CURSO -->
+    <string name="titulo_edt_curso">Editar Cadastro de Curso</string>
+    <string name="subt_editar_curso">Selecione um curso abaixo pelo nome:</string>
+
+    <!--- CTX EXCLUIR CURSO -->
+    <string name="titulo_del_curso">Excluir Cadastro de Curso</string>
+    <string name="subt_del_curso">Selecione um curso abaixo pelo nome:</string>
+
+    <!--- OPÇOES ABAS -->
+    <string name="op1">INSERIR</string>
+    <string name="op2">EDITAR</string>
+    <string name="op3">EXCLUIR</string>
+
+    <!--- OPÇOES BOTOES -->
+    <string name="btnCadastrar">Cadastar</string>
+    <string name="btnCancelar">Cancelar</string>
+    <string name="btnExcluir">Excluir</string>
+    <string name="btnEditar">Editar</string>
+
+</resources>

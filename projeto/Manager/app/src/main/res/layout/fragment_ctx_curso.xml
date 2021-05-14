@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CtxAlunoFragment"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:background="@color/zomp"
+        android:gravity="center"
+        android:text="@string/titulo_ctx_curso"
+        android:textSize="18sp" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabCursoLay"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/eton_blue">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabCurso1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/op1" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabCurso2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/op2" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabCurso3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/op3" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pagerCurso"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8.5" />
+</LinearLayout>
