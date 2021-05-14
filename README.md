@@ -31,8 +31,8 @@ Foram Atendidos os seguintes requisitos mínimos:
 ### Requisitos Extras
 
 - [x] inserção de dados via mock em csv
-- [ ] máscaras de CPF
-- [ ] máscaras de Telefone
+- [ ] ~~máscaras de CPF~~
+- [ ] ~~máscaras de Telefone~~
 - [ ] não aceitar cpfs duplicados
 - [ ] relatório de alunos por curso
 - [ ] seção sobre o aplicativo
