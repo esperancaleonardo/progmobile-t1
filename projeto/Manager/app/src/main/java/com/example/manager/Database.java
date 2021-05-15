@@ -216,12 +216,19 @@ public class Database extends SQLiteOpenHelper {
     // buscam nome, telefone e email dos alunos através do cpf
     public String getAlunoNome(String aluno_cpf){
 
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT aluno_nome FROM TB_ALUNO where aluno_cpf = '"+aluno_cpf+"'", null);
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT count(*) FROM TB_ALUNO", null);
         cursor.moveToFirst();
-        String nome = cursor.getString(cursor.getColumnIndex("aluno_nome"));
+        int registros = cursor.getInt(0);
 
-        if(nome != null){
-            return nome;
+        if(registros > 0){
+            cursor = getReadableDatabase().rawQuery("SELECT aluno_nome FROM TB_ALUNO where aluno_cpf = '"+aluno_cpf+"'", null);
+            cursor.moveToFirst();
+            String nome = cursor.getString(0);
+
+            if(nome != null){
+                return nome;
+            }
+            return null;
         }
         return null;
     }
