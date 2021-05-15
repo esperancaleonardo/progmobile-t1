@@ -2,7 +2,9 @@ package com.example.manager;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteAbortException;
 import android.database.sqlite.SQLiteDatabase;
@@ -44,8 +46,8 @@ public class Database extends SQLiteOpenHelper {
                 "    aluno_telefone           TEXT      NOT NULL," +
                 "    aluno_curso_id           INTEGER   REFERENCES TB_CURSO(curso_id) ON DELETE RESTRICT ON UPDATE CASCADE)");
 
-        this.insereMockCursos(db);
-        this.insereMockAlunos(db);
+        //this.insereMockCursos(db);
+        //this.insereMockAlunos(db);
         this.db = db;
     }
 
@@ -156,7 +158,7 @@ public class Database extends SQLiteOpenHelper {
     public void insereAluno(Aluno aluno){
         db = this.getWritableDatabase();
 
-        if(this.getAlunoNome(aluno.getCpf().toString()) == null){
+        if(this.getAlunoNome(aluno.getCpf()) == null){
             ContentValues valores = new ContentValues();
             valores.put("aluno_nome", aluno.getNome());
             valores.put("aluno_email", aluno.getEmail());
@@ -221,14 +223,15 @@ public class Database extends SQLiteOpenHelper {
         int registros = cursor.getInt(0);
 
         if(registros > 0){
-            cursor = getReadableDatabase().rawQuery("SELECT aluno_nome FROM TB_ALUNO where aluno_cpf = '"+aluno_cpf+"'", null);
-            cursor.moveToFirst();
-            String nome = cursor.getString(0);
-
-            if(nome != null){
+            try{
+                Cursor cursor2 = getReadableDatabase().rawQuery("SELECT aluno_nome FROM TB_ALUNO where aluno_cpf = '"+aluno_cpf+"'", null);
+                cursor2.moveToFirst();
+                String nome = cursor2.getString(0);
                 return nome;
             }
-            return null;
+            catch (CursorIndexOutOfBoundsException e){
+                return null;
+            }
         }
         return null;
     }
@@ -274,16 +277,20 @@ public class Database extends SQLiteOpenHelper {
 
         Cursor cursor = getReadableDatabase().rawQuery("Select COUNT(aluno_id) qdt, curso_nome FROM TB_ALUNO A JOIN TB_CURSO C ON C.curso_id = A.aluno_curso_id GROUP BY curso_nome", null);
         cursor.moveToFirst();
-
-        int qtde;
-        String curso_nome;
         ArrayList<String> qtd_aluno_curso = new ArrayList<String>();
 
-        do{
-            qtde = cursor.getInt(0);
-            curso_nome = cursor.getString(1);
-            qtd_aluno_curso.add(String.valueOf(qtde)+" alunos cadastrados no curso "+curso_nome+".");
-        }while (cursor.moveToNext());
+        if(cursor.getCount() > 0) {
+            int qtde;
+            String curso_nome;
+
+            do {
+                qtde = cursor.getInt(0);
+                curso_nome = cursor.getString(1);
+                Resources res = context.getResources();
+                qtd_aluno_curso.add(res.getQuantityString(R.plurals.plural_alunos_curso, qtde, qtde) + " " + curso_nome + ".");
+            } while (cursor.moveToNext());
+        }
+
         return qtd_aluno_curso;
     }
 

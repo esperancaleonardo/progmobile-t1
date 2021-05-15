@@ -21,9 +21,11 @@ public class CtxListagemQtdeFragment extends Fragment {
         //leitura de todos os registros a serem incluidos no listview
         ArrayList<String> registros= database.alunosPorCurso();
         //atualiza o list view com os registros da lista
-        ArrayList<String> lista = new ArrayList<String>(registros);
-        ListagemAdapter adapter = new ListagemAdapter(super.getContext(), android.R.layout.simple_list_item_1, lista);
-        alunosPorCurso.setAdapter(adapter);
+        if(registros.size() > 0){
+            ArrayList<String> lista = new ArrayList<String>(registros);
+            ListagemAdapter adapter = new ListagemAdapter(super.getContext(), android.R.layout.simple_list_item_1, lista);
+            alunosPorCurso.setAdapter(adapter);
+        }
     }
 
     @Override
@@ -39,9 +41,11 @@ public class CtxListagemQtdeFragment extends Fragment {
         ArrayList<String> registros= database.alunosPorCurso();
 
         //atualiza o list view com os registros da lista
-        ArrayList<String> lista = new ArrayList<String>(registros);
-        ListagemAdapter adapter = new ListagemAdapter(super.getContext(), android.R.layout.simple_list_item_1, lista);
-        alunosPorCurso.setAdapter(adapter);
+        if(registros.size() > 0){
+            ArrayList<String> lista = new ArrayList<String>(registros);
+            ListagemAdapter adapter = new ListagemAdapter(super.getContext(), android.R.layout.simple_list_item_1, lista);
+            alunosPorCurso.setAdapter(adapter);
+        }
         return v;
     }
 }
