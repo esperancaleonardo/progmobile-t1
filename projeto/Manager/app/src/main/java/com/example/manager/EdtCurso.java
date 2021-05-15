@@ -21,11 +21,11 @@ public class EdtCurso extends Fragment {
     Database database;
     int click = 0;
 
+
     @Override
     public void onResume() {
         super.onResume();
-        ArrayList<String> cursos_lista = database.listaCursos();
-        ArrayAdapter cursos_adapter = new ArrayAdapter(EdtCurso.super.getContext(), android.R.layout.simple_spinner_item, cursos_lista);
+        ArrayAdapter cursos_adapter = new ArrayAdapter(EdtCurso.super.getContext(), android.R.layout.simple_spinner_item, database.listaCursos());
         cursos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         seletorCurso.setAdapter(cursos_adapter);
     }
@@ -36,6 +36,7 @@ public class EdtCurso extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_edt_curso, container, false);
 
+
         database = new Database(container.getContext());
 
         nomeCurso = v.findViewById(R.id.editTextNomeEditCurso);
@@ -45,8 +46,7 @@ public class EdtCurso extends Fragment {
         seletorCurso = v.findViewById(R.id.spinnerSeletorCursoEdit);
 
         //carrega os dados dos cursos presentes em banco para o spinner de selecao de curso
-        ArrayList<String> cursos_lista = database.listaCursos();
-        ArrayAdapter cursos_adapter = new ArrayAdapter(EdtCurso.super.getContext(), android.R.layout.simple_spinner_item, cursos_lista);
+        ArrayAdapter cursos_adapter = new ArrayAdapter(EdtCurso.super.getContext(), android.R.layout.simple_spinner_item, database.listaCursos());
         cursos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         seletorCurso.setAdapter(cursos_adapter);
 
@@ -55,8 +55,9 @@ public class EdtCurso extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0){//quando o spinner for diferente de "Selecione um curso"
                     //busca os dados no banco e permite a correção/alteração dos mesmos
-                    nomeCurso.setText(cursos_lista.get(position));
+                    ArrayList<String> cursos_lista = database.listaCursos();
                     int carga = database.getCursoCh((String) cursos_lista.get(position));
+                    nomeCurso.setText(cursos_lista.get(position));
                     cargaCurso.setText(Integer.toString(carga));
                 }
             }
@@ -110,8 +111,7 @@ public class EdtCurso extends Fragment {
                         nomeCurso.setText("");
                         cargaCurso.setText("");
 
-                        ArrayList<String> cursos_lista = database.listaCursos();
-                        ArrayAdapter cursos_adapter = new ArrayAdapter(container.getContext(), android.R.layout.simple_spinner_item, cursos_lista);
+                        ArrayAdapter cursos_adapter = new ArrayAdapter(container.getContext(), android.R.layout.simple_spinner_item, database.listaCursos());
                         cursos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         seletorCurso.setAdapter(cursos_adapter);
 
@@ -121,6 +121,8 @@ public class EdtCurso extends Fragment {
                         Toast.makeText(EdtCurso.super.getContext(),"Há campos em branco!", Toast.LENGTH_LONG).show();
                     }
 
+                    nomeCurso.setText("");
+                    cargaCurso.setText("");
                     nomeCurso.setEnabled(false);
                     nomeCurso.setFocusable(false);
                     nomeCurso.setFocusableInTouchMode(false);
