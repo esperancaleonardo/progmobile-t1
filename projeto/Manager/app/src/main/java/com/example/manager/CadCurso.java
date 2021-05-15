@@ -10,15 +10,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class CadCurso extends Fragment {
-
     private EditText curso_nome, curso_ch;
     private Database database;
     private Button cancelar, cadastrar;
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_cad_curso, container, false);
         database = new Database(container.getContext());
         curso_nome = v.findViewById(R.id.editTextNomeCadCurso);
@@ -35,8 +32,7 @@ public class CadCurso extends Fragment {
                 if ((!nome.equals("")) && (!ch.equals(""))){
                     Curso curso = new Curso(nome, Integer.parseInt(ch));
                     Toast.makeText(CadCurso.super.getContext(),"Curso cadastrado com sucesso!", Toast.LENGTH_LONG).show();
-                    curso_ch.setText("");
-                    curso_nome.setText("");
+                    limpa_campos();
                     database.insereCurso(curso);
                 }
                 else{
@@ -48,11 +44,14 @@ public class CadCurso extends Fragment {
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                curso_ch.setText("");
-                curso_nome.setText("");
+                limpa_campos();
                 Toast.makeText(CadCurso.super.getContext(),"Ação cancelada!", Toast.LENGTH_LONG).show();
             }
         });
         return v;
+    }
+    private void limpa_campos(){
+        curso_ch.setText("");
+        curso_nome.setText("");
     }
 }

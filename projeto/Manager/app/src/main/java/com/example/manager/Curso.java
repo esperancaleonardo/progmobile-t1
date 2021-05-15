@@ -1,7 +1,6 @@
 package com.example.manager;
 
 public class Curso {
-
     private final String nome;
     private final Integer carga_horaria;
 
@@ -11,6 +10,5 @@ public class Curso {
     }
 
     public String getNome(){return nome;}
-
     public Integer getCarga_horaria(){return carga_horaria;}
 }
