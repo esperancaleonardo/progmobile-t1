@@ -71,6 +71,12 @@ public class EdtCurso extends Fragment {
                 seletorCurso.setSelection(0);
                 nomeCurso.setText("");
                 cargaCurso.setText("");
+                nomeCurso.setEnabled(false);
+                nomeCurso.setFocusable(false);
+                nomeCurso.setFocusableInTouchMode(false);
+                cargaCurso.setEnabled(false);
+                cargaCurso.setFocusable(false);
+                cargaCurso.setFocusableInTouchMode(false);
             }
         });
 
@@ -121,7 +127,7 @@ public class EdtCurso extends Fragment {
                     cargaCurso.setEnabled(false);
                     cargaCurso.setFocusable(false);
                     cargaCurso.setFocusableInTouchMode(false);
-                    editar.setText("SALVAR");
+                    editar.setText("EDITAR");
 
                 }
             }

@@ -60,13 +60,15 @@ public class CadAluno extends Fragment {
                     try{
                         int id_curso = database.getCursoId(spinner_seletor_curso.getSelectedItem().toString());
                         Aluno aluno = new Aluno(nome, email, cpf, telefone, id_curso);
+                        database.insereAluno(aluno);
+
                         Toast.makeText(CadAluno.super.getContext(),"Aluno cadastrado com sucesso!", Toast.LENGTH_LONG).show();
                         aluno_nome.setText("");
                         aluno_email.setText("");
                         aluno_cpf.setText("");
                         aluno_telefone.setText("");
                         spinner_seletor_curso.setSelection(0);
-                        database.insereAluno(aluno);
+
                     }catch (SQLiteAbortException e){
                         Toast.makeText(CadAluno.super.getContext(),"Já existe um usuário com este CPF", Toast.LENGTH_LONG).show();
                     }

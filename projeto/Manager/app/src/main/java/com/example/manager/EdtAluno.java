@@ -82,6 +82,17 @@ public class EdtAluno extends Fragment {
                 nomeAluno.setText("");
                 emailAluno.setText("");
                 telefoneAluno.setText("");
+                seletorCurso.setAdapter(null);
+                seletorCurso.setEnabled(false);
+                nomeAluno.setEnabled(false);
+                nomeAluno.setFocusable(false);
+                nomeAluno.setFocusableInTouchMode(false);
+                emailAluno.setEnabled(false);
+                emailAluno.setFocusable(false);
+                emailAluno.setFocusableInTouchMode(false);
+                telefoneAluno.setEnabled(false);
+                telefoneAluno.setFocusable(false);
+                telefoneAluno.setFocusableInTouchMode(false);
             }
         });
 
