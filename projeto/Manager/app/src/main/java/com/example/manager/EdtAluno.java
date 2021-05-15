@@ -2,31 +2,30 @@ package com.example.manager;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 import java.util.ArrayList;
 
 public class EdtAluno extends Fragment {
-
     private EditText nomeAluno, emailAluno, telefoneAluno;
     private Spinner  seletorCurso, seletorAlunoEdt;
     private Button editar, cancelar;
     private Database database;
-    int click = 0;
+    private int click = 0;
 
     @Override
     public void onResume() {
         super.onResume();
-        ArrayList<String> alunos_lista = database.listaAlunos();
-        ArrayAdapter alunos_adapter = new ArrayAdapter(EdtAluno.super.getContext(), android.R.layout.simple_spinner_item, alunos_lista);
+        ArrayAdapter alunos_adapter = new ArrayAdapter(EdtAluno.super.getContext(), android.R.layout.simple_spinner_item, database.listaAlunos());
         alunos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         seletorAlunoEdt.setAdapter(alunos_adapter);
     }
@@ -34,11 +33,8 @@ public class EdtAluno extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_edt_aluno, container, false);
-
         database = new Database(container.getContext());
-
         nomeAluno = v.findViewById(R.id.editTextNomeEdtAluno);
         emailAluno = v.findViewById(R.id.editTextEmailEdtAluno);
         telefoneAluno = v.findViewById(R.id.editTextTelefoneEdtAluno);
@@ -49,8 +45,7 @@ public class EdtAluno extends Fragment {
         seletorCurso.setEnabled(false);
 
         //carrega os dados dos cursos do banco e preenche o spinner
-        ArrayList<String> alunos_lista = database.listaAlunos();
-        ArrayAdapter alunos_adapter = new ArrayAdapter(EdtAluno.super.getContext(), android.R.layout.simple_spinner_item, alunos_lista);
+        ArrayAdapter alunos_adapter = new ArrayAdapter(EdtAluno.super.getContext(), android.R.layout.simple_spinner_item, database.listaCursos());
         alunos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         seletorAlunoEdt.setAdapter(alunos_adapter);
 
@@ -63,8 +58,7 @@ public class EdtAluno extends Fragment {
                     nomeAluno.setText(database.getAlunoNome(aluno_cpf));
                     emailAluno.setText(database.getAlunoEmail(aluno_cpf));
                     telefoneAluno.setText(database.getAlunoTelefone(aluno_cpf));
-                    ArrayList<String> cursos_lista = database.listaCursos();
-                    ArrayAdapter cursos_adapter = new ArrayAdapter(EdtAluno.super.getContext(), android.R.layout.simple_spinner_item, cursos_lista);
+                    ArrayAdapter cursos_adapter = new ArrayAdapter(EdtAluno.super.getContext(), android.R.layout.simple_spinner_item, database.listaCursos());
                     cursos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     seletorCurso.setAdapter(cursos_adapter);
                 }
@@ -79,20 +73,8 @@ public class EdtAluno extends Fragment {
                 //limpa os campos e exibe toast informativo
                 Toast.makeText(EdtAluno.super.getContext(),"Ação cancelada!", Toast.LENGTH_LONG).show();
                 seletorAlunoEdt.setSelection(0);
-                nomeAluno.setText("");
-                emailAluno.setText("");
-                telefoneAluno.setText("");
-                seletorCurso.setAdapter(null);
-                seletorCurso.setEnabled(false);
-                nomeAluno.setEnabled(false);
-                nomeAluno.setFocusable(false);
-                nomeAluno.setFocusableInTouchMode(false);
-                emailAluno.setEnabled(false);
-                emailAluno.setFocusable(false);
-                emailAluno.setFocusableInTouchMode(false);
-                telefoneAluno.setEnabled(false);
-                telefoneAluno.setFocusable(false);
-                telefoneAluno.setFocusableInTouchMode(false);
+                click = 0;
+                limpa_campos(null, false, "", "EDITAR");
             }
         });
 
@@ -101,23 +83,13 @@ public class EdtAluno extends Fragment {
             public void onClick(View v) {//verifica os campos preeenchidos e insere no banco
                 if(click == 0){
                     click = 1;
-
-                    seletorCurso.setEnabled(true);
-                    nomeAluno.setEnabled(true);
-                    nomeAluno.setFocusable(true);
-                    nomeAluno.setFocusableInTouchMode(true);
-                    emailAluno.setEnabled(true);
-                    emailAluno.setFocusable(true);
-                    emailAluno.setFocusableInTouchMode(true);
-                    telefoneAluno.setEnabled(true);
-                    telefoneAluno.setFocusable(true);
-                    telefoneAluno.setFocusableInTouchMode(true);
-                    editar.setText("SALVAR");
-
+                    ArrayAdapter cursos = new ArrayAdapter(EdtAluno.super.getContext(), android.R.layout.simple_spinner_item, database.listaCursos());
+                    cursos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    seletorCurso.setAdapter(cursos);
+                    limpa_campos(cursos,true, "dummy", "SALVAR");
                 }
                 else{
                     click=0;
-
                     String nome = nomeAluno.getText().toString();
                     String email = emailAluno.getText().toString();
                     String telefone = telefoneAluno.getText().toString();
@@ -127,36 +99,38 @@ public class EdtAluno extends Fragment {
                         int id_alteracao = database.getAlunoId(seletorAlunoEdt.getSelectedItem().toString());
                         int id_curso = database.getCursoId(seletorCurso.getSelectedItem().toString());
                         Aluno aluno = new Aluno(nome, email, seletorAlunoEdt.getSelectedItem().toString(), telefone, id_curso);
-
                         database.atualizaAluno(id_alteracao, aluno);
                         seletorAlunoEdt.setSelection(0);
-                        nomeAluno.setText("");
-                        emailAluno.setText("");
-                        telefoneAluno.setText("");
-                        seletorCurso.setAdapter(null);
                         Toast.makeText(EdtAluno.super.getContext(),"Aluno alterado com sucesso!", Toast.LENGTH_LONG).show();
-
+                        limpa_campos(null, false, "", "EDITAR");
                     }
                     else{
                         Toast.makeText(EdtAluno.super.getContext(),"Há campos em branco!", Toast.LENGTH_LONG).show();
+                        click=1;
                     }
-
-                    seletorCurso.setAdapter(null);
-                    seletorCurso.setEnabled(false);
-                    nomeAluno.setEnabled(false);
-                    nomeAluno.setFocusable(false);
-                    nomeAluno.setFocusableInTouchMode(false);
-                    emailAluno.setEnabled(false);
-                    emailAluno.setFocusable(false);
-                    emailAluno.setFocusableInTouchMode(false);
-                    telefoneAluno.setEnabled(false);
-                    telefoneAluno.setFocusable(false);
-                    telefoneAluno.setFocusableInTouchMode(false);
-                    editar.setText("EDITAR");
                 }
             }
         });
-
         return v;
+    }
+
+    private void limpa_campos(ArrayAdapter adapter, Boolean flagHabilita, String text, String btnText){
+        if(text.equals("")) {
+            nomeAluno.setText(text);
+            emailAluno.setText(text);
+            telefoneAluno.setText(text);
+        }
+        editar.setText(btnText);
+        seletorCurso.setAdapter(adapter);
+        seletorCurso.setEnabled(flagHabilita);
+        nomeAluno.setEnabled(flagHabilita);
+        nomeAluno.setFocusable(flagHabilita);
+        nomeAluno.setFocusableInTouchMode(flagHabilita);
+        emailAluno.setEnabled(flagHabilita);
+        emailAluno.setFocusable(flagHabilita);
+        emailAluno.setFocusableInTouchMode(flagHabilita);
+        telefoneAluno.setEnabled(flagHabilita);
+        telefoneAluno.setFocusable(flagHabilita);
+        telefoneAluno.setFocusableInTouchMode(flagHabilita);
     }
 }
