@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="plural_alunos_curso">
+        <item quantity="zero">%d alunos cadastrados no curso </item>
+        <item quantity="one">%d aluno cadastrado no curso </item>
+        <item quantity="other">%d alunos cadastrados no curso </item>
+    </plurals>
+</resources>
