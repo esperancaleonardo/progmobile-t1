@@ -5,4 +5,9 @@
         <item quantity="one">%d aluno cadastrado no curso </item>
         <item quantity="other">%d alunos cadastrados no curso </item>
     </plurals>
+    <plurals name="plural_horas">
+        <item quantity="one">%d hora.</item>
+        <item quantity="other">%d horas. </item>
+    </plurals>
+
 </resources>

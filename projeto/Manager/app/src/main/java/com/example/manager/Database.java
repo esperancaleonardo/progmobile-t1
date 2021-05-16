@@ -18,8 +18,7 @@ public class Database extends SQLiteOpenHelper {
     private static final int DB_VERSION=1;
     private static final String DB_NAME="DB_CURSOS_ONLINE.db";
     private final Context context;
-
-    SQLiteDatabase db;
+    private SQLiteDatabase db;
 
     public Database(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -46,8 +45,8 @@ public class Database extends SQLiteOpenHelper {
                 "    aluno_telefone           TEXT      NOT NULL," +
                 "    aluno_curso_id           INTEGER   REFERENCES TB_CURSO(curso_id) ON DELETE RESTRICT ON UPDATE CASCADE)");
 
-        //this.insereMockCursos(db);
-        //this.insereMockAlunos(db);
+        this.insereMockCursos(db);
+        this.insereMockAlunos(db);
         this.db = db;
     }
 
@@ -58,9 +57,9 @@ public class Database extends SQLiteOpenHelper {
         String line;
         while(scanner.hasNextLine() && ((line = scanner.nextLine()) != null)) {
             String[] values = line.split(",");
-            if(values.length != 2)
+            if(values.length != 2){
                 continue;
-
+            }
             ContentValues contentValues = new ContentValues();
             contentValues.put("curso_nome", values[0]);
             contentValues.put("curso_carga_horaria", values[1]);
@@ -77,8 +76,9 @@ public class Database extends SQLiteOpenHelper {
         String line;
         while(scanner.hasNextLine() && ((line = scanner.nextLine()) != null)) {
             String[] values = line.split(",");
-            if(values.length != 5)
+            if(values.length != 5){
                 continue;
+            }
 
             ContentValues contentValues = new ContentValues();
             contentValues.put("aluno_nome", values[0]);
@@ -109,7 +109,7 @@ public class Database extends SQLiteOpenHelper {
             String aluno = cursor.getString(0);
             String curso = cursor.getString(1);
             String carga = cursor.getString(2);
-            listaRegistros.add(aluno + " cadastrou-se no curso: " + curso + " com carga horária de " + carga + " horas.");
+            listaRegistros.add(aluno + " cadastrou-se no curso: " + curso + " com carga horária de " + carga + R.plurals.plural_horas);
         }
         return listaRegistros;
     }
@@ -274,7 +274,6 @@ public class Database extends SQLiteOpenHelper {
 
     //retorna a quantidade de alunos que escolheram cada um dos cursos
     public ArrayList<String> alunosPorCurso(){
-
         Cursor cursor = getReadableDatabase().rawQuery("Select COUNT(aluno_id) qdt, curso_nome FROM TB_ALUNO A JOIN TB_CURSO C ON C.curso_id = A.aluno_curso_id GROUP BY curso_nome", null);
         cursor.moveToFirst();
         ArrayList<String> qtd_aluno_curso = new ArrayList<String>();
@@ -282,7 +281,6 @@ public class Database extends SQLiteOpenHelper {
         if(cursor.getCount() > 0) {
             int qtde;
             String curso_nome;
-
             do {
                 qtde = cursor.getInt(0);
                 curso_nome = cursor.getString(1);
@@ -290,7 +288,6 @@ public class Database extends SQLiteOpenHelper {
                 qtd_aluno_curso.add(res.getQuantityString(R.plurals.plural_alunos_curso, qtde, qtde) + " " + curso_nome + ".");
             } while (cursor.moveToNext());
         }
-
         return qtd_aluno_curso;
     }
 
