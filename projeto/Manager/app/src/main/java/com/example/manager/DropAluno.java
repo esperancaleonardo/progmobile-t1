@@ -14,7 +14,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class DropAluno extends Fragment {
-
     private EditText nomeAluno, emailAluno, telefoneAluno;
     private Spinner seletorAlunoDel;
     private Button deletar, cancelar;
@@ -23,15 +22,13 @@ public class DropAluno extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ArrayList<String> alunos_lista = database.listaAlunos();
-        ArrayAdapter alunos_adapter = new ArrayAdapter(DropAluno.super.getContext(), android.R.layout.simple_spinner_item, alunos_lista);
+        ArrayAdapter alunos_adapter = new ArrayAdapter(DropAluno.super.getContext(), android.R.layout.simple_spinner_item, database.listaAlunos());
         alunos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         seletorAlunoDel.setAdapter(alunos_adapter);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_drop_aluno, container, false);
         database = new Database(container.getContext());
@@ -42,16 +39,13 @@ public class DropAluno extends Fragment {
         deletar = v.findViewById(R.id.btnDelAluno);
         seletorAlunoDel = v.findViewById(R.id.spinnerSeletorAlunoDel);
 
-        ArrayList<String> alunos_lista = database.listaAlunos();
-        ArrayAdapter alunos_adapter = new ArrayAdapter(DropAluno.super.getContext(), android.R.layout.simple_spinner_item, alunos_lista);
-        alunos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        seletorAlunoDel.setAdapter(alunos_adapter);
+        preenche_seletor();
 
         seletorAlunoDel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0){
-                    String aluno_cpf =  seletorAlunoDel.getSelectedItem().toString();
+                    String aluno_cpf = seletorAlunoDel.getSelectedItem().toString();
                     nomeAluno.setText(database.getAlunoNome(aluno_cpf));
                     emailAluno.setText(database.getAlunoEmail(aluno_cpf));
                     telefoneAluno.setText(database.getAlunoTelefone(aluno_cpf));
@@ -65,10 +59,7 @@ public class DropAluno extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(DropAluno.super.getContext(),"Ação cancelada!", Toast.LENGTH_LONG).show();
-                seletorAlunoDel.setSelection(0);
-                nomeAluno.setText("");
-                emailAluno.setText("");
-                telefoneAluno.setText("");
+                limpa_dados();
             }
         });
 
@@ -78,15 +69,9 @@ public class DropAluno extends Fragment {
                 if(seletorAlunoDel.getSelectedItemId() != 0) {
                     int id_deletar = database.getAlunoId(seletorAlunoDel.getSelectedItem().toString());
                     database.deletarAluno(id_deletar);
-                    seletorAlunoDel.setSelection(0);
-                    nomeAluno.setText("");
-                    emailAluno.setText("");
-                    telefoneAluno.setText("");
+                    limpa_dados();
 
-                    ArrayList<String> alunos_lista = database.listaAlunos();
-                    ArrayAdapter alunos_adapter = new ArrayAdapter(DropAluno.super.getContext(), android.R.layout.simple_spinner_item, alunos_lista);
-                    alunos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    seletorAlunoDel.setAdapter(alunos_adapter);
+                    preenche_seletor();
                     Toast.makeText(DropAluno.super.getContext(), "Aluno deletado com sucesso!", Toast.LENGTH_LONG).show();
                 }
                 else{
@@ -95,5 +80,18 @@ public class DropAluno extends Fragment {
             }
         });
         return v;
+    }
+
+    public void limpa_dados(){
+        nomeAluno.setText("");
+        emailAluno.setText("");
+        telefoneAluno.setText("");
+        seletorAlunoDel.setSelection(0);
+    }
+
+    public void preenche_seletor(){
+        ArrayAdapter alunos_adapter = new ArrayAdapter(DropAluno.super.getContext(), android.R.layout.simple_spinner_item, database.listaAlunos());
+        alunos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        seletorAlunoDel.setAdapter(alunos_adapter);
     }
 }

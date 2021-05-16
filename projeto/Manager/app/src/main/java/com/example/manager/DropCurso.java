@@ -14,7 +14,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class DropCurso extends Fragment {
-
     private EditText nomeCurso;
     private Spinner seletorCurso;
     private Button deletar, cancelar;
@@ -23,16 +22,13 @@ public class DropCurso extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ArrayList<String> cursos_lista = database.listaCursos();
-        ArrayAdapter cursos_adapter = new ArrayAdapter(DropCurso.super.getContext(), android.R.layout.simple_spinner_item, cursos_lista);
+        ArrayAdapter cursos_adapter = new ArrayAdapter(DropCurso.super.getContext(), android.R.layout.simple_spinner_item, database.listaCursos());
         cursos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         seletorCurso.setAdapter(cursos_adapter);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_drop_curso, container, false);
         database = new Database(container.getContext());
         nomeCurso = v.findViewById(R.id.editTextNomeDelCurso);
@@ -40,16 +36,13 @@ public class DropCurso extends Fragment {
         deletar = v.findViewById(R.id.btnDelCurso);
         seletorCurso = v.findViewById(R.id.spinnerSeletorCursoDel);
 
-        ArrayList<String> cursos_lista = database.listaCursos();
-        ArrayAdapter cursos_adapter = new ArrayAdapter(DropCurso.super.getContext(), android.R.layout.simple_spinner_item, cursos_lista);
-        cursos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        seletorCurso.setAdapter(cursos_adapter);
+        preenche_seletor(container);
 
         seletorCurso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0){
-                    nomeCurso.setText(cursos_lista.get(position));
+                    nomeCurso.setText(database.listaCursos().get(position));
                 }
             }
             @Override
@@ -60,8 +53,7 @@ public class DropCurso extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(DropCurso.super.getContext(),"Ação cancelada!", Toast.LENGTH_LONG).show();
-                seletorCurso.setSelection(0);
-                nomeCurso.setText("");
+                limpa_campos();
             }
         });
 
@@ -72,13 +64,8 @@ public class DropCurso extends Fragment {
                     try {
                         int id_deletar = database.getCursoId(seletorCurso.getSelectedItem().toString());
                         database.deletarCurso(id_deletar);
-                        seletorCurso.setSelection(0);
-                        nomeCurso.setText("");
-
-                        ArrayList<String> cursos_lista = database.listaCursos();
-                        ArrayAdapter cursos_adapter = new ArrayAdapter(container.getContext(), android.R.layout.simple_spinner_item, cursos_lista);
-                        cursos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        seletorCurso.setAdapter(cursos_adapter);
+                        limpa_campos();
+                        preenche_seletor(container);
                         Toast.makeText(DropCurso.super.getContext(), "Curso alterado com sucesso!", Toast.LENGTH_LONG).show();
                     }
                     catch (android.database.sqlite.SQLiteConstraintException e){
@@ -91,5 +78,16 @@ public class DropCurso extends Fragment {
             }
         });
         return v;
+    }
+
+    public void limpa_campos(){
+        seletorCurso.setSelection(0);
+        nomeCurso.setText("");
+    }
+
+    public void preenche_seletor(ViewGroup container){
+        ArrayAdapter cursos_adapter = new ArrayAdapter(container.getContext(), android.R.layout.simple_spinner_item, database.listaCursos());
+        cursos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        seletorCurso.setAdapter(cursos_adapter);
     }
 }

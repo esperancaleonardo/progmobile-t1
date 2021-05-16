@@ -12,9 +12,6 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    //TODO: Verificar de deixar campos de ttexto desabilitados no delete
-    // TODO: desabilitados até apertar o botão na aba edittar
-
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navView;
