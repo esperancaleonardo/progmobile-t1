@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 
 class ListagemAdapter extends ArrayAdapter<String> {
-
     private HashMap<String, Integer> array = new HashMap<String, Integer>();
 
     public ListagemAdapter(Context context, int textViewResourceId, List<String> objects) {

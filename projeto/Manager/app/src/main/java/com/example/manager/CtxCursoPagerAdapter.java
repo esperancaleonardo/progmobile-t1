@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 public class CtxCursoPagerAdapter extends FragmentStatePagerAdapter {
-
     private int tabsCount;
 
     public CtxCursoPagerAdapter(@NonNull FragmentManager fm, int behavior, int tabs) {
