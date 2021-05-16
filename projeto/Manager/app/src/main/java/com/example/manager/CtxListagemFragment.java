@@ -9,38 +9,33 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class CtxListagemFragment extends Fragment {
-
     private ListView listaCadastros;
     private Database database;
 
     @Override
     public void onResume() {
         super.onResume();
-        //leitura de todos os registros a serem incluidos no listview
-        ArrayList<String> registros= database.listaCadastros();
-        //atualiza o list view com os registros da lista
-        if(registros.size() > 0) {
-            ArrayList<String> lista = new ArrayList<String>(registros);
+        ArrayList<String> lista = new ArrayList<String>(database.listaCadastros());
+
+        if(lista.size() > 0){
+            //atualiza o list view com os registros da lista
             ListagemAdapter adapter = new ListagemAdapter(super.getContext(), android.R.layout.simple_list_item_1, lista);
             listaCadastros.setAdapter(adapter);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_ctx_listagem, container, false);
-
         database = new Database(container.getContext());
         listaCadastros = v.findViewById(R.id.listViewCadastros);
 
-        //leitura de todos os registros a serem incluidos no listview
-        ArrayList<String> registros= database.listaCadastros();
+        ArrayList<String> lista = new ArrayList<String>(database.listaCadastros());
 
-        if(registros.size() > 0){
+        if(lista.size() > 0){
             //atualiza o list view com os registros da lista
-            ArrayList<String> lista = new ArrayList<String>(registros);
             ListagemAdapter adapter = new ListagemAdapter(super.getContext(), android.R.layout.simple_list_item_1, lista);
             listaCadastros.setAdapter(adapter);
         }

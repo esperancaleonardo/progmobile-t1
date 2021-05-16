@@ -18,31 +18,22 @@ public class CtxListagemQtdeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //leitura de todos os registros a serem incluidos no listview
-        ArrayList<String> registros= database.alunosPorCurso();
-        //atualiza o list view com os registros da lista
-        if(registros.size() > 0){
-            ArrayList<String> lista = new ArrayList<String>(registros);
+        ArrayList<String> lista = new ArrayList<String>(database.alunosPorCurso());
+        if(lista.size() > 0){
             ListagemAdapter adapter = new ListagemAdapter(super.getContext(), android.R.layout.simple_list_item_1, lista);
             alunosPorCurso.setAdapter(adapter);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_ctx_listagem, container, false);
-
         database = new Database(container.getContext());
         alunosPorCurso = v.findViewById(R.id.listViewCadastros);
-
-        //leitura de todos os registros a serem incluidos no listview
-        ArrayList<String> registros= database.alunosPorCurso();
+        ArrayList<String> lista = new ArrayList<String>(database.alunosPorCurso());
 
         //atualiza o list view com os registros da lista
-        if(registros.size() > 0){
-            ArrayList<String> lista = new ArrayList<String>(registros);
+        if(lista.size() > 0){
             ListagemAdapter adapter = new ListagemAdapter(super.getContext(), android.R.layout.simple_list_item_1, lista);
             alunosPorCurso.setAdapter(adapter);
         }
