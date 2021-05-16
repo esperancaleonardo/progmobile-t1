@@ -109,8 +109,9 @@ public class Database extends SQLiteOpenHelper {
             String aluno = cursor.getString(0);
             String curso = cursor.getString(1);
             String carga = cursor.getString(2);
+            int carga_int = Integer.parseInt(carga);
             Resources res = context.getResources();
-            listaRegistros.add(aluno + " cadastrou-se no curso: " + curso + " com carga horária de " + carga +" "+ res.getQuantityString(R.plurals.plural_horas, Integer.parseInt(carga), carga));
+            listaRegistros.add(aluno + " cadastrou-se no curso: " + curso + " com carga horária de "+ res.getQuantityString(R.plurals.plural_horas, carga_int, carga_int));
         }
         return listaRegistros;
     }
