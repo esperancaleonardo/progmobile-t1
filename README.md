@@ -76,6 +76,7 @@ Seque abaixo o modelo que atende os requisitos mínimos do projeto
 ### Link Apresentação do Trabalho
 
 [Clique aqui para ver o vídeo de apresentação!](https://www.youtube.com/watch?v=ok8BW0pBLJA)
+[Clique aqui para ver o vídeo de apresentação do banco de dados do trabalho!](https://youtu.be/47h1e8-IAkg)
 
 -------------------------------------------------
 ## Aluno Responsável Pela Entrega
