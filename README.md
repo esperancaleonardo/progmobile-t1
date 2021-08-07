@@ -51,6 +51,17 @@ Foram implementados:
 - [x] bloquear a edição do texto até clicar em editar nas edições;
 - [x] ativar edição ao clicar em 'EDITAR' que passa a ser 'SALVAR' nos contextos de edição;
 
+### SCREENSHOTS DO APP
+
+<p float="left">
+  <img src="https://github.com/esperancaleonardo/progmobile-t1/blob/main/assets/screenshots/Screenshot_20210516-004645.png" width="180" height="280" />
+  <img src="https://github.com/esperancaleonardo/progmobile-t1/blob/main/assets/screenshots/Screenshot_20210516-004653.png" width="180" height="280" />
+  <img src="https://github.com/esperancaleonardo/progmobile-t1/blob/main/assets/screenshots/Screenshot_20210516-004707.png" width="180" height="280" />
+  <img src="https://github.com/esperancaleonardo/progmobile-t1/blob/main/assets/screenshots/Screenshot_20210516-004718.png" width="180" height="280" />
+  <img src="https://github.com/esperancaleonardo/progmobile-t1/blob/main/assets/screenshots/Screenshot_20210516-004731.png" width="180" height="280" />
+</p>
+
+
 ### DER - Modelo do Banco
 
 ![alt text](https://github.com/esperancaleonardo/progmobile-t1/blob/main/assets/DER_RELACIONAL.png)
@@ -64,7 +75,9 @@ Seque abaixo o modelo que atende os requisitos mínimos do projeto
 
 ### Link Apresentação do Trabalho
 
-[Clique aqui para ver o vídeo de apresentação!](http://www.youtube.com)
+[Clique aqui para ver o vídeo de apresentação!](https://www.youtube.com/watch?v=ok8BW0pBLJA)
+
+[Clique aqui para ver o vídeo de apresentação do banco de dados do trabalho!](https://youtu.be/47h1e8-IAkg)
 
 -------------------------------------------------
 ## Aluno Responsável Pela Entrega
