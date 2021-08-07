@@ -50,6 +50,11 @@ public class Database extends SQLiteOpenHelper {
         this.db = db;
     }
 
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+    }
+
     //insere um mock de cursos contido em um csv dentro da pasta raw
     public void insereMockCursos(SQLiteDatabase db){
         Scanner scanner = new Scanner(this.context.getResources().openRawResource(R.raw.mock_data));
@@ -92,11 +97,6 @@ public class Database extends SQLiteOpenHelper {
         db.endTransaction();
     }
 
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-    }
 
     //busca todos os cadastros de alunos associados a cursos através do JOIN entre
     //as tabelas TB_CURSO e TB_ALUNO, pelo relacionamento criado pela chave
@@ -219,7 +219,6 @@ public class Database extends SQLiteOpenHelper {
 
     // buscam nome, telefone e email dos alunos através do cpf
     public String getAlunoNome(String aluno_cpf){
-
         Cursor cursor = getReadableDatabase().rawQuery("SELECT count(*) FROM TB_ALUNO", null);
         cursor.moveToFirst();
         int registros = cursor.getInt(0);
